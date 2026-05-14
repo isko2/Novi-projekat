@@ -1,0 +1,240 @@
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { ContactForm } from "@/components/ContactForm";
+import { ArrowLeft, Play, CheckCircle2 } from "lucide-react";
+import { Link } from "wouter";
+import { useState } from "react";
+
+export default function WatchDemo() {
+  const [openContactDialog, setOpenContactDialog] = useState(false);
+
+  const demoHighlights = [
+    {
+      title: "24/7 Availability",
+      description: "Never miss a call. The AI agent handles incoming calls around the clock, even outside business hours.",
+    },
+    {
+      title: "Natural Conversations",
+      description: "Patients can speak naturally. The AI understands context, handles follow-ups, and maintains professionalism.",
+    },
+    {
+      title: "Instant Scheduling",
+      description: "Patients can book appointments directly through voice or text. Integrates with your practice management system.",
+    },
+    {
+      title: "Smart Routing",
+      description: "Urgent calls are routed to staff. Routine inquiries are handled automatically. Customizable rules for your practice.",
+    },
+    {
+      title: "Patient Data Integration",
+      description: "Access patient history during calls. Personalized greetings and context-aware responses.",
+    },
+    {
+      title: "Real-time Analytics",
+      description: "Track call volume, booking rates, and patient satisfaction. Detailed insights into system performance.",
+    },
+  ];
+
+  return (
+    <div className="min-h-screen bg-background text-foreground">
+      {/* Navigation */}
+      <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-border">
+        <div className="container flex items-center justify-between py-4">
+          <Link href="/">
+            <a className="flex items-center gap-2 hover:opacity-80 transition">
+              <ArrowLeft className="w-5 h-5 text-primary" />
+              <span className="text-sm font-medium">Back to Home</span>
+            </a>
+          </Link>
+          <div className="flex items-center gap-4">
+            <span className="font-bold text-lg text-primary">DentalVoice AI</span>
+          </div>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <section className="py-12 md:py-20 bg-gradient-to-b from-secondary/20 to-background">
+        <div className="container">
+          <div className="text-center space-y-6 mb-12">
+            <h1 className="text-4xl md:text-5xl font-bold" style={{ fontFamily: "Geist" }}>
+              See DentalVoice AI in Action
+            </h1>
+            <p className="text-lg text-foreground/70 max-w-2xl mx-auto">
+              Watch how our AI voice and text agent transforms dental practice operations by automating patient communication and scheduling.
+            </p>
+          </div>
+
+          {/* Video Player */}
+          <div className="max-w-4xl mx-auto mb-12">
+            <div className="relative bg-black rounded-lg overflow-hidden shadow-2xl">
+              <video
+                controls
+                className="w-full h-auto"
+                poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1280 720'%3E%3Crect fill='%230F766E' width='1280' height='720'/%3E%3C/svg%3E"
+              >
+                <source src="/manus-storage/dental-voice-demo.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 hover:opacity-100 transition-opacity">
+                <Play className="w-16 h-16 text-white" />
+              </div>
+            </div>
+            <p className="text-center text-sm text-foreground/60 mt-4">
+              8-minute demo showing the complete workflow from call intake to appointment confirmation
+            </p>
+          </div>
+
+          {/* CTA Section */}
+          <div className="text-center mb-16">
+            <p className="text-lg text-foreground/70 mb-6">
+              Ready to see how this can transform your practice?
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Dialog open={openContactDialog} onOpenChange={setOpenContactDialog}>
+                <DialogTrigger asChild>
+                  <Button size="lg" className="bg-primary hover:bg-primary/90 text-white">
+                    Schedule a Live Demo
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-md">
+                  <DialogHeader>
+                    <DialogTitle>Schedule a Live Demo</DialogTitle>
+                    <DialogDescription>
+                      Let our team walk you through how DentalVoice AI can work for your practice.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <ContactForm variant="contact" onSuccess={() => setOpenContactDialog(false)} />
+                </DialogContent>
+              </Dialog>
+              <Link href="/">
+                <a>
+                  <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-secondary/20">
+                    Back to Home
+                  </Button>
+                </a>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Key Features Section */}
+      <section className="py-16 md:py-24 bg-white">
+        <div className="container">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ fontFamily: "Geist" }}>
+              What You'll See in the Demo
+            </h2>
+            <p className="text-lg text-foreground/70 max-w-2xl mx-auto">
+              Key capabilities and features demonstrated in the video
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {demoHighlights.map((highlight, index) => (
+              <Card key={index} className="p-6 border border-border/50 hover:border-primary/50 transition">
+                <div className="flex items-start gap-4">
+                  <CheckCircle2 className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
+                  <div>
+                    <h3 className="font-semibold text-foreground mb-2">{highlight.title}</h3>
+                    <p className="text-sm text-foreground/70">{highlight.description}</p>
+                  </div>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-16 md:py-24 bg-secondary/10">
+        <div className="container max-w-3xl">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ fontFamily: "Geist" }}>
+              Frequently Asked Questions
+            </h2>
+          </div>
+
+          <div className="space-y-6">
+            {[
+              {
+                q: "How long does it take to set up?",
+                a: "Most practices are up and running within 24-48 hours. Our team handles the integration with your existing practice management system.",
+              },
+              {
+                q: "Can the AI handle complex patient inquiries?",
+                a: "Yes. The AI is trained to handle routine inquiries like appointment scheduling, rescheduling, and general questions. Complex issues are automatically routed to your staff.",
+              },
+              {
+                q: "What languages does it support?",
+                a: "Currently supports English with plans for Spanish and other languages. Contact us for specific language requirements.",
+              },
+              {
+                q: "How is patient data protected?",
+                a: "All data is encrypted in transit and at rest. We comply with HIPAA regulations and maintain SOC 2 Type II certification.",
+              },
+              {
+                q: "Can I customize the AI's responses?",
+                a: "Yes. You can customize greetings, hold messages, appointment confirmation text, and routing rules through our dashboard.",
+              },
+              {
+                q: "What's the pricing model?",
+                a: "We offer flexible pricing based on call volume and features. Most practices see ROI within 3-6 months. Contact us for a custom quote.",
+              },
+            ].map((faq, index) => (
+              <div key={index} className="bg-white rounded-lg p-6 border border-border/50">
+                <h3 className="font-semibold text-foreground mb-3">{faq.q}</h3>
+                <p className="text-foreground/70">{faq.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA Section */}
+      <section className="py-16 md:py-24 bg-gradient-to-r from-primary to-primary/80 text-white">
+        <div className="container text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6" style={{ fontFamily: "Geist" }}>
+            Ready to Transform Your Practice?
+          </h2>
+          <p className="text-lg text-white/80 max-w-2xl mx-auto mb-8">
+            Join hundreds of dental practices already using DentalVoice AI to save time and improve patient satisfaction.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Dialog open={openContactDialog} onOpenChange={setOpenContactDialog}>
+              <DialogTrigger asChild>
+                <Button size="lg" className="bg-white text-primary hover:bg-white/90">
+                  Start Your Free Trial
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-md">
+                <DialogHeader>
+                  <DialogTitle>Start Your Free Trial</DialogTitle>
+                  <DialogDescription>
+                    Get 14 days of unlimited access to DentalVoice AI. No credit card required.
+                  </DialogDescription>
+                </DialogHeader>
+                <ContactForm variant="lead" onSuccess={() => setOpenContactDialog(false)} />
+              </DialogContent>
+            </Dialog>
+            <Link href="/">
+              <a>
+                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
+                  Back to Home
+                </Button>
+              </a>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-foreground/5 border-t border-border py-8">
+        <div className="container text-center text-sm text-foreground/60">
+          <p>&copy; 2026 DentalVoice AI. All rights reserved.</p>
+        </div>
+      </footer>
+    </div>
+  );
+}
